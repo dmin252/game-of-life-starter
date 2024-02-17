@@ -10,6 +10,16 @@ void setup() {
 
   // populate initial grid
   // your code here
+  for (int i = 0; i < grid.length; i++) {
+    for (int j = 0; j < grid[i].length; j++) {
+      if (Math.random() < DENSITY) {
+        grid[i][j] = 1; 
+      } else {
+        grid[i][j] = 0; 
+      }
+    }
+  }
+  
 
 }
 
@@ -39,4 +49,14 @@ void showGrid() {
   // your code here
   // use square() to represent each cell
   // use fill(r, g, b) to control color: black for empty, red for filled (or alive)
+  for (int i = 0; i < grid.length; i++) {
+    for (int j = 0; j < grid[i].length; j++) {
+      if (grid[i][j] == 1) {
+        fill(255, 0, 0); 
+      } else {
+        fill(0); 
+      }
+      square(j * SPACING, i * SPACING, SPACING);
+    }
+  }
 }
