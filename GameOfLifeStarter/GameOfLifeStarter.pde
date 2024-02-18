@@ -39,6 +39,35 @@ int[][] calcNextGrid() {
 int countNeighbors(int y, int x) {
   int n = 0; // don't count yourself!
   
+  
+  for (int i = 0; i < grid.length; i++) {
+    for (int j = 0; j < grid[i].length; j++) {
+      if (grid[i][j + 1] == 1) {
+        n++;
+      }
+      if (grid[i][j - 1] == 1) {
+        n++;
+      }
+      if (grid[i + 1][j + 1] == 1) {
+        n++;
+      }
+      if (grid[i - 1][j - 1] == 1) {
+        n++;
+      }
+      if (grid[i + 1][j - 1] == 1) {
+        n++;
+      }
+      if (grid[i + 1][j] == 1) {
+        n++;
+      }
+      if (grid[i - 1][j] == 1) {
+        n++;
+      }
+      if (grid[i - 1][j + 1] == 1) {
+        n++;
+      }
+    }
+  }
   // your code here
   // don't check out-of-bounds cells
 
