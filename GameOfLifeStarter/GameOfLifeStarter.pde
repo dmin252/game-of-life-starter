@@ -55,30 +55,7 @@ int countNeighbors(int y, int x) {
   
   for (int i = 0; i < grid.length; i++) {
     for (int j = 0; j < grid[i].length; j++) {
-      if (grid[i][j + 1] == 1) {
-        n++;
-      }
-      if (grid[i][j - 1] == 1) {
-        n++;
-      }
-      if (grid[i + 1][j + 1] == 1) {
-        n++;
-      }
-      if (grid[i - 1][j - 1] == 1) {
-        n++;
-      }
-      if (grid[i + 1][j - 1] == 1) {
-        n++;
-      }
-      if (grid[i + 1][j] == 1) {
-        n++;
-      }
-      if (grid[i - 1][j] == 1) {
-        n++;
-      }
-      if (grid[i - 1][j + 1] == 1) {
-        n++;
-      }
+      
     }
   }
   // your code here
