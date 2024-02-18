@@ -3,7 +3,7 @@ final float DENSITY = 0.1; // how likely each cell is to be alive at the start
 int[][] grid; // the 2D array to hold 0's and 1's
 
 void setup() {
-  size(800, 600); // adjust accordingly, make sure it's a multiple of SPACING
+  size(1600, 1600); // adjust accordingly, make sure it's a multiple of SPACING
   noStroke(); // don't draw the edges of each cell
   frameRate(10); // controls speed of regeneration
   grid = new int[height / SPACING][width / SPACING];
@@ -25,7 +25,8 @@ void setup() {
 
 void draw() {
   showGrid();
-  grid = calcNextGrid();
+  int[][] nextGrid = calcNextGrid();
+  grid = nextGrid;
 }
 
 int[][] calcNextGrid() {
@@ -35,7 +36,7 @@ int[][] calcNextGrid() {
     for (int j = 0; j < grid[i].length; j++) {
       int neighbors = countNeighbors(i,j);
       
-      if (grid[i][j] == 1 && (neighbors < 2 || neighbors < 3)) {
+      if (grid[i][j] == 1 && (neighbors < 2 || neighbors > 3)) {
         nextGrid[i][j] = 0;
       } else if (grid[i][j] == 0 && neighbors == 3) {
         nextGrid[i][j] = 1;
@@ -53,14 +54,19 @@ int countNeighbors(int y, int x) {
   int n = 0; // don't count yourself!
   
   
-  for (int i = 0; i < grid.length; i++) {
-    for (int j = 0; j < grid[i].length; j++) {
-      
+  int[] dx = {-1, 0, 1, -1, 1, -1, 0, 1};
+  int[] dy = {-1, -1, -1, 0, 0, 1, 1, 1};
+
+  for (int k = 0; k < dx.length; k++) {
+    int neighborY = y + dy[k];
+    int neighborX = x + dx[k];
+
+    if (neighborY >= 0 && neighborY < grid.length && neighborX >= 0 && neighborX < grid[0].length) {
+      if (grid[neighborY][neighborX] == 1) {
+        n++;
+      }
     }
   }
-  // your code here
-  // don't check out-of-bounds cells
-
   return n;
 }
 
