@@ -31,6 +31,19 @@ void draw() {
 int[][] calcNextGrid() {
   int[][] nextGrid = new int[grid.length][grid[0].length];
 
+  for (int i = 0; i < grid.length; i++) {
+    for (int j = 0; j < grid[i].length; j++) {
+      int neighbors = countNeighbors(i,j);
+      
+      if (grid[i][j] == 1 && (neighbors < 2 || neighbors < 3)) {
+        nextGrid[i][j] = 0;
+      } else if (grid[i][j] == 0 && neighbors == 3) {
+        nextGrid[i][j] = 1;
+      } else {
+        nextGrid[i][j] = grid[i][j];
+      }
+    }
+  }
   // your code here
 
   return nextGrid;
