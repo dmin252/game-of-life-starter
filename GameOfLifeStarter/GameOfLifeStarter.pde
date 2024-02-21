@@ -11,12 +11,12 @@ void setup() {
 
   // populate initial grid
   // your code here
-  for (int i = 0; i < grid.length; i++) {
-    for (int j = 0; j < grid[i].length; j++) {
+  for (int row = 0; row < grid.length; row++) {
+    for (int col = 0; col < grid[row].length; col++) {
       if (Math.random() < DENSITY) {
-        grid[i][j] = 1; 
+        grid[row][col] = 1; 
       } else {
-        grid[i][j] = 0; 
+        grid[row][col] = 0; 
       }
     }
   }
@@ -34,31 +34,32 @@ void draw() {
 
 void keyPressed() {
   if (key == ' ') {
-    paused = !paused;
+    paused = !paused; // toggle pause mode
   } else if (keyCode == RIGHT) {
-    stepForward();
+    stepForward(); // move forward one step
   }
 }
 
 void stepForward() {
   showGrid();
-  int[][] nextGrid = calcNextGrid();
-  grid = nextGrid;
+  int[][] nextGrid = calcNextGrid(); // calculate the next grid state
+  grid = nextGrid; //update grid
 }
 
 int[][] calcNextGrid() {
   int[][] nextGrid = new int[grid.length][grid[0].length];
 
-  for (int i = 0; i < grid.length; i++) {
-    for (int j = 0; j < grid[i].length; j++) {
-      int neighbors = countNeighbors(i,j);
+  for (int row = 0; row < grid.length; row++) {
+    for (int col = 0; col < grid[row].length; col++) {
+      int neighbors = countNeighbors(row,col);
       
-      if (grid[i][j] == 1 && (neighbors < 2 || neighbors > 3)) {
-        nextGrid[i][j] = 0;
-      } else if (grid[i][j] == 0 && neighbors == 3) {
-        nextGrid[i][j] = 1;
+      // Applying the rules of the game to determine the next state of the cell
+      if (grid[row][col] == 1 && (neighbors < 2 || neighbors > 3)) {
+        nextGrid[row][col] = 0;
+      } else if (grid[row][col] == 0 && neighbors == 3) {
+        nextGrid[row][col] = 1;
       } else {
-        nextGrid[i][j] = grid[i][j];
+        nextGrid[row][col] = grid[row][col];
       }
     }
   }
@@ -71,15 +72,16 @@ int countNeighbors(int y, int x) {
   int n = 0; // don't count yourself!
   
   
-  int[] dx = {-1, 0, 1, -1, 1, -1, 0, 1};
-  int[] dy = {-1, -1, -1, 0, 0, 1, 1, 1};
+  int[] dx = {-1, 0, 1, -1, 1, -1, 0, 1}; //checking all the coordinates
+  int[] dy = {-1, -1, -1, 0, 0, 1, 1, 1}; //checking all the coordinates
 
   for (int k = 0; k < dx.length; k++) {
     int neighborY = y + dy[k];
     int neighborX = x + dx[k];
 
+    // Check if the neighbor is within the grid boundaries and alive
     if (neighborY >= 0 && neighborY < grid.length && neighborX >= 0 && neighborX < grid[0].length) {
-      if (grid[neighborY][neighborX] == 1) {
+      if (grid[neighborY][neighborX] == 1) { 
         n++;
       }
     }
@@ -91,14 +93,14 @@ void showGrid() {
   // your code here
   // use square() to represent each cell
   // use fill(r, g, b) to control color: black for empty, red for filled (or alive)
-  for (int i = 0; i < grid.length; i++) {
-    for (int j = 0; j < grid[i].length; j++) {
-      if (grid[i][j] == 1) {
-        fill(255, 0, 0); 
+  for (int row = 0; row < grid.length; row++) {
+    for (int col = 0; col < grid[row].length; col++) {
+      if (grid[row][col] == 1) {
+        fill(255, 0, 0); //red if alive
       } else {
-        fill(0); 
+        fill(0); //black if dead
       }
-      square(j * SPACING, i * SPACING, SPACING);
+      square(col * SPACING, row * SPACING, SPACING); //draw the cell
     }
   }
 }
