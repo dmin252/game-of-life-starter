@@ -1,6 +1,7 @@
-final int SPACING = 20; // each cell's width/height //<>// //<>//
+final int SPACING = 5; // each cell's width/height //<>// //<>//
 final float DENSITY = 0.1; // how likely each cell is to be alive at the start
 int[][] grid; // the 2D array to hold 0's and 1's
+boolean paused = false;
 
 void setup() {
   size(1600, 1600); // adjust accordingly, make sure it's a multiple of SPACING
@@ -24,6 +25,22 @@ void setup() {
 }
 
 void draw() {
+  if(!paused) {
+    showGrid();
+    int[][] nextGrid = calcNextGrid();
+    grid = nextGrid;
+  }
+}
+
+void keyPressed() {
+  if (key == ' ') {
+    paused = !paused;
+  } else if (keyCode == RIGHT) {
+    stepForward();
+  }
+}
+
+void stepForward() {
   showGrid();
   int[][] nextGrid = calcNextGrid();
   grid = nextGrid;
